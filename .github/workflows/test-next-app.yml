@@ -11,7 +11,7 @@ jobs:
         working-directory: test-nextjs-app
     strategy:
       matrix:
-        node-version: [14.x, 16.x]
+        node-version: [20.x]
 
     steps:
       - uses: actions/checkout@v2
