@@ -6,9 +6,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    # defaults:
-    #   run:
-    #     working-directory: test-nextjs-app
+    defaults:
+      run:
+        working-directory: test-nextjs-app
     strategy:
       matrix:
         node-version: [20.x]
@@ -21,15 +21,13 @@ jobs:
         with:
           node-version: 20.x
           cache: "npm"
+          cache-dependency-path: "./package-lock.json"
 
       - name: Install dependencies
         run: npm install
-        working-directory: test-nextjs-app
 
       - name: Build
         run: npm run build
-        working-directory: test-nextjs-app
 
       - name: Run linting
         run: npm run lint
-        working-directory: test-nextjs-app
