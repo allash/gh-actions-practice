@@ -4,7 +4,37 @@ on:
   push:
     branches: [main]
 jobs:
-  build:
+  test:
+    name: 'Linting and testing'
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: test-nextjs-app
+    strategy:
+      matrix:
+        node-version: [20.x]
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Using Node ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+          cache-dependency-path: './test-nextjs-app/package-lock.json'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run linting
+        run: npm run lint
+
+      - name: Run tests
+        run: npm run test
+
+  deploy:
+    needs: test
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -29,8 +59,5 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Run tests
-        run: npm run test
-
-      - name: Run linting
-        run: npm run lint
+      - name: Deploy
+        run: echo 'Deploying...'
