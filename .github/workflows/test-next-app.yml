@@ -45,6 +45,12 @@ jobs:
           path: test-nextjs-app/.next/**
           if-no-files-found: error
 
+      # - name: Archive code coverage reports
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: code-coverage-report
+      #     path: test-nextjs-app/coverage/lcov-report/index.html
+
   deploy:
     needs: build
     name: Deploy
@@ -60,7 +66,7 @@ jobs:
           name: dist
 
       - name: Output contents
-        run: ls -la
+        run: ls
 
       - name: Deploy
         run: echo 'Deploying...'
