@@ -4,14 +4,13 @@ on:
   push:
     branches: [main]
 
-defaults:
-  run:
-    working-directory: test-nextjs-app
-
 jobs:
   build:
     name: 'Build and test'
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: test-nextjs-app
     strategy:
       matrix:
         node-version: [20.x]
@@ -41,7 +40,7 @@ jobs:
       - name: Upload arfifacts
         uses: actions/upload-artifact@v3
         with:
-          name: dist
+          name: build
           path: test-nextjs-app/.next/**
           if-no-files-found: error
 
@@ -63,7 +62,7 @@ jobs:
       - name: Get build artifacts
         uses: actions/download-artifact@v3
         with:
-          name: dist
+          name: build
 
       - name: Output contents
         run: ls
