@@ -41,8 +41,8 @@ jobs:
         with:
           name: dist-files
           path: |
-            .next/**
-            package.json
+            test-nextjs-app/.next/**
+            test-nextjs-app/package.json
           if-no-files-found: error
 
   # deploy:
