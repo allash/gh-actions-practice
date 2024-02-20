@@ -32,7 +32,7 @@ jobs:
         run: npm run lint
 
       - name: Run tests
-        run: npm run test
+        run: npm run test:coverage
 
       - name: Build
         run: npm run build
@@ -44,11 +44,11 @@ jobs:
           path: test-nextjs-app/.next/**
           if-no-files-found: error
 
-      # - name: Archive code coverage reports
-      #   uses: actions/upload-artifact@v3
-      #   with:
-      #     name: code-coverage-report
-      #     path: test-nextjs-app/coverage/lcov-report/index.html
+      - name: Upload coverage
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage-report
+          path: test-nextjs-app/coverage/**
 
   deploy:
     needs: build
