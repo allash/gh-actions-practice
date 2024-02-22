@@ -7,6 +7,7 @@ on:
 env:
   NEXT_PUBLIC_TEST_VALUE: value-from-gh-actions
   TEST_INT: 20
+  SECRET_VALUE: ${{ secrets.SECRET_VALUE }}
 
 jobs:
   build:
@@ -72,4 +73,4 @@ jobs:
         run: ls
 
       - name: Deploy
-        run: echo 'Deploying... ${{ env.TEST_INT }}'
+        run: echo 'Deploying... ${{ env.TEST_INT }} and ${{ env.SECRET_VALUE }}'
