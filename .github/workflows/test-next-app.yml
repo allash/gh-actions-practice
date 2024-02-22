@@ -4,6 +4,10 @@ on:
   push:
     branches: [main]
 
+env:
+  NEXT_PUBLIC_TEST_VALUE: value-from-gh-actions
+  TEST_INT: 20
+
 jobs:
   build:
     name: 'Build and test'
