@@ -79,7 +79,7 @@ jobs:
     environment: staging
     env:
       SUPER_VALUE: ${{ secrets.SUPER_VALUE }}
-    needs: build
+    needs: deploy_dev
     name: Deploy STAGING
     runs-on: ubuntu-latest
     strategy:
