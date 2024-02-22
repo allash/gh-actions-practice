@@ -55,9 +55,12 @@ jobs:
           name: coverage-report
           path: test-nextjs-app/coverage/**
 
-  deploy:
+  deploy_dev:
+    environment: dev
+    env:
+      SUPER_VALUE: ${{ secrets.SUPER_VALUE }}
     needs: build
-    name: Deploy
+    name: Deploy DEV
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -69,8 +72,25 @@ jobs:
         with:
           name: build
 
-      - name: Output contents
-        run: ls
+      - name: Deploy
+        run: echo 'Deploying... ${{ env.TEST_INT }} and ${{ env.SECRET_VALUE }} and ${{ env.SUPER_VALUE }}'
+
+  deploy_staging:
+    environment: staging
+    env:
+      SUPER_VALUE: ${{ secrets.SUPER_VALUE }}
+    needs: build
+    name: Deploy STAGING
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [20.x]
+
+    steps:
+      - name: Get build artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: build
 
       - name: Deploy
-        run: echo 'Deploying... ${{ env.TEST_INT }} and ${{ env.SECRET_VALUE }}'
+        run: echo 'Deploying... ${{ env.TEST_INT }} and ${{ env.SECRET_VALUE }} and ${{ env.SUPER_VALUE }}'
